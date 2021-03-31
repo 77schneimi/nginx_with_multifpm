@@ -1,0 +1,50 @@
+version: '3.3'
+
+services:
+  nginx:
+    image: nginx:${NGINX_IMAGE_TAG}
+    restart: ${PROP_RESTART}
+    ports:
+      - "8080:80"
+      - "81:81"
+    depends_on:
+    - phpfpm
+    - service2
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./html:/var/www/html
+      - ./logs:/var/log/nginx
+
+  phpfpm:
+    container_name: phpfpm
+    image: ${PHP_FPM} #mhoffmann/php-fpm7
+    restart: ${PROP_RESTART}
+    volumes:
+      - ./html:/var/www/html
+      - ./logs:/logs
+    networks:
+      default:
+        aliases:
+          - fpm
+    command: php index.php 
+
+
+  service2:
+    container_name: service2
+    image: mhoffmann/php-fpm7
+    restart: ${PROP_RESTART}
+    volumes:
+      - ./html2:/var/www/html2
+      - ./logs:/logs
+    ports:
+        - "81:81"
+    networks:
+      default:
+        aliases:
+          - fpm2  #upstream in nginx server conf
+    command: php index.php 
+
+
+networks:
+  default:
+    driver: "bridge"
