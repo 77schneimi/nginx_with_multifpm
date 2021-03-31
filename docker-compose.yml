@@ -6,7 +6,7 @@ services:
     restart: ${PROP_RESTART}
     ports:
       - "8080:80"
-      - "81:81"
+      - "8081:81"
     depends_on:
     - phpfpm
     - service2
@@ -22,6 +22,8 @@ services:
     volumes:
       - ./html:/var/www/html
       - ./logs:/logs
+    ports:
+        - "8080:80"
     networks:
       default:
         aliases:
@@ -34,10 +36,10 @@ services:
     image: mhoffmann/php-fpm7
     restart: ${PROP_RESTART}
     volumes:
-      - ./html2:/var/www/html2
+      - ./html2:/var/www/html
       - ./logs:/logs
     ports:
-        - "81:81"
+        - "8081:81"
     networks:
       default:
         aliases:
