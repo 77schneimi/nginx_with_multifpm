@@ -18,7 +18,7 @@ Start the docker with `docker-compose up`
 
 ## Result
 
-In file /log/logging.log are two entries.
+In file /log/logging.log are two entries. This comes from the php Files.
 
 ```sh
 2021-03-31 20:11:03.875: ERROR - /var/www/html/logger.class.php-> - line:122 : i am index one
@@ -27,6 +27,18 @@ In file /log/logging.log are two entries.
 
 The _... i am index one_ comes from the script in __/html/index.php__ .
 Second _... i am index two_ comes from the script in __/html2/index.php__ .
+
+## Errors
+
+Can be found in ./logs/error.log
+
+```sh
+2021/03/31 18:00:16 [emerg] 1#1: host not found in upstream "phpfpm:8080" in /etc/nginx/nginx.conf:6
+2021/03/31 18:05:21 [emerg] 1#1: host not found in upstream "phpfpm:8080" in /etc/nginx/nginx.conf:6
+2021/03/31 18:07:00 [emerg] 1#1: host not found in upstream "phpfpm:8080" in /etc/nginx/nginx.conf:6
+2021/03/31 18:11:06 [emerg] 1#1: host not found in upstream "phpfpm:8080" in /etc/nginx/nginx.conf:6
+2021/05/21 18:38:28 [emerg] 1#1: host not found in upstream "phpfpm:8080" in /etc/nginx/nginx.conf:6
+```
 
 ## Sources and Links
 
